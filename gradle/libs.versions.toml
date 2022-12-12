@@ -1,0 +1,20 @@
+[versions]
+kotlin = "1.7.20"
+
+kord = "0.8.0-M17"
+kord_extensions = "1.5.5-SNAPSHOT"
+logback_classic = "1.4.5"
+kotlin_logging = "3.0.4"
+groovy = "3.0.13"
+
+gson = "2.10"
+
+[libraries]
+kord_core = { module = "dev.kord:kord-core", version.ref = "kord" }
+kord_extensions = { module = "com.kotlindiscord.kord.extensions:kord-extensions", version.ref = "kord_extensions" }
+logback_classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback_classic" }
+kotlin_logging = { module = "io.github.microutils:kotlin-logging", version.ref = "kotlin_logging" }
+groovy = { module = "org.codehaus.groovy:groovy", version.ref = "groovy" }
+
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+
