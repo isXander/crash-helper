@@ -6,16 +6,14 @@ import com.kotlindiscord.kord.extensions.utils.download
 import com.kotlindiscord.kord.extensions.utils.isNullOrBot
 import com.kotlindiscord.kord.extensions.utils.runSuspended
 import dev.isxander.crashhelper.CrashAnalyser
-import dev.isxander.crashhelper.bot.utils.removePrivateInfo
-import dev.isxander.crashhelper.bot.utils.uploadToMcLogs
-import dev.isxander.crashhelper.utils.CODE_BLOCK_REGEX
+import dev.isxander.crashhelper.bot.utils.*
+import dev.isxander.crashhelper.utils.*
 import dev.kord.core.event.message.MessageCreateEvent
 import kotlinx.coroutines.newFixedThreadPoolContext
-import dev.isxander.crashhelper.utils.LOG_EXTENSIONS
-import dev.isxander.crashhelper.utils.LOG_TEXT
-import dev.isxander.crashhelper.utils.PASTEBIN_REGEX
 import dev.kord.common.Color
 import dev.kord.core.behavior.channel.createEmbed
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
 
 object TextScanner : Extension() {
     override val name: String = "Text Scanner"
@@ -38,10 +36,8 @@ object TextScanner : Extension() {
                         .filter { LOG_TEXT.any { regex -> regex.containsMatchIn(it) } }
                         .forEach { texts.add(it) }
 
-                    PASTEBIN_REGEX
-                        .findAll(content)
-                        .map { it.groups[0]!!.value }
-                        .filter { LOG_TEXT.any { regex -> regex.containsMatchIn(it) } }
+                    findPasteUrls(content)
+                        .map { httpClient.get(it).bodyAsText() }
                         .forEach { texts.add(it) }
 
                     CODE_BLOCK_REGEX
@@ -59,10 +55,15 @@ object TextScanner : Extension() {
 
                         val filteredContent = removePrivateInfo(content)
                             .replace(CODE_BLOCK_REGEX, "(code block)")
-                            .replace(PASTEBIN_REGEX, "(pastebin link)")
-                            .replace(" +".toRegex(), " ")
+                            .let { content ->
+                                var str = content
+                                PASTE_REGEXES.forEach { str = str.replace(it, "") }
+                                str
+                            }
+                            .trim()
+                            .replace(" {2,}".toRegex(), " ")
                         if (filteredContent.isNotBlank())
-                            description = "**${event.member?.displayName} said:** *$filteredContent*"
+                            description = "**${event.member?.displayName} said:** $filteredContent"
 
                         author {
                             name = event.member?.displayName

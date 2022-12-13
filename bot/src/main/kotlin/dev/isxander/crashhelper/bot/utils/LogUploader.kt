@@ -1,20 +1,10 @@
 package dev.isxander.crashhelper.bot.utils
 
-import io.ktor.client.*
+import dev.isxander.crashhelper.utils.httpClient
 import io.ktor.client.call.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.Serializable
-
-val httpClient = HttpClient(CIO) {
-    install(ContentNegotiation) {
-        json()
-    }
-}
 
 suspend fun uploadToMcLogs(content: String): String? {
     val response: McLogsResponse = httpClient.submitForm(

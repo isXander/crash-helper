@@ -1,8 +1,4 @@
 /.env
 .gradle
 .idea
-
-# Project exclude paths
-/base/build/
-/base/build/classes/kotlin/main/
-/bot/build/
+build

@@ -1,6 +1,6 @@
 package dev.isxander.crashhelper.utils
 
-val IP_REGEX: Regex = Regex("([0-9]{1,3})\\\\.([0-9]{1,3})\\\\.([0-9]{1,3})\\\\.([0-9]{1,3})", RegexOption.IGNORE_CASE)
+
 val URL_REGEX: Regex = Regex("https?://(www\\\\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\\\\.[a-zA-Z0-9()]{1,6}\\\\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)", RegexOption.IGNORE_CASE)
 val PASTEBIN_REGEX: Regex = Regex("(?:https?://)?(?<domain>paste\\.ee|pastebin\\.com|has?tebin\\.com|hasteb\\.in|hst\\.sh)/(?:raw/|p/)?([\\w-.]+)", RegexOption.IGNORE_CASE)
 val CODE_BLOCK_REGEX: Regex = Regex("```(?<language>[a-zA-Z0-9]*)\\n(?<code>.+)\\n```", RegexOption.DOT_MATCHES_ALL)

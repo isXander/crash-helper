@@ -14,6 +14,7 @@ interface Method {
             "contains" to Contains.Decoder,
             "regex" to Regex.Decoder,
             "allocated_ram" to AllocatedRamAmount.Decoder,
+            "mod_loaded" to ModLoaded.Decoder,
         )
     }
 }

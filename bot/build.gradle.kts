@@ -16,8 +16,7 @@ dependencies {
 
     implementation(project(path = ":base", configuration = "default"))
 
-    implementation(libs.kord.core)
-    implementation(libs.kord.extensions)
+    implementation(libs.bundles.kord)
 
     implementation(libs.logback.classic)
     implementation(libs.kotlin.logging)

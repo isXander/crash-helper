@@ -2,7 +2,7 @@ package dev.isxander.crashhelper
 
 object CrashAnalyser {
     fun analyse(crash: String): Analysis {
-        val fixes = RepositoryFetcher.fixes
+        val fixes = repository.get()
 
         val categories = mutableListOf<Analysis.AnalysisCategory>()
         for (category in fixes.categories) {
@@ -30,7 +30,7 @@ object CrashAnalyser {
             for (category in categories) {
                 builder.append("**${category.name}**\n")
                 for (message in category.messages) {
-                    builder.append("- $message\n")
+                    builder.append("• $message\n")
                 }
             }
             return builder.toString()

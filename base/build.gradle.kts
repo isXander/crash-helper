@@ -7,4 +7,5 @@ plugins {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(libs.gson)
+    implementation(libs.bundles.ktor)
 }
